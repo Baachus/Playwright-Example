@@ -88,7 +88,7 @@ def test_progress_bar(page):
     page.click('#stopButton')
     result = page.inner_text("#result")
     resultLength = int(result[len(result)-1])
-    if (resultLength>5 or resultLength<0):
+    if (resultLength>10 or resultLength<0):
         print(f'Result length when stopped was over or under 75% by {str(resultLength)}%')
     assert all(["Result: " in result, resultLength>=0, resultLength<=5])
     
