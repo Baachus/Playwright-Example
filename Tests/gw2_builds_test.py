@@ -3,49 +3,23 @@ import pytest
 
 def test_retrieve_all_builds(page):
     
-    #PvP Builds
-    page.goto('https://guildjen.com/builds/')
-    page.click("a[data-id='12412']>img")
-    assert page.inner_text(".entry-title")=="PvP Builds"
+    names = {"PvP Builds": "a[data-id='12412']>img", 
+            "WvW Builds": "a[data-id='12416']>img", 
+            "Raid Builds": "a[data-id='22312']>img", 
+            "Open World Builds": "a[data-id='23070']>img", 
+            "Strike Mission Builds": "a[data-id='23146']>img", 
+            "Fractal Builds": "a[data-id='23329']>img"}
 
-    df = get_Builds(page, pd.DataFrame(), "PvP Builds")
+    df = pd.DataFrame()
 
-    #WvW Builds
-    page.goto('https://guildjen.com/builds/')
-    page.click("a[data-id='12416']>img")
-    assert page.inner_text(".entry-title")=="WvW Builds"
+    for spot in names:
+        page.goto('https://guildjen.com/builds/')
+        page.click(names[spot])
+        assert page.inner_text(".entry-title")==spot
+        
+        temp = get_Builds(page, pd.DataFrame(), spot)
+        df = pd.concat([df, temp])
 
-    df = get_Builds(page, df, "WvW Builds")
-
-    #Raid Builds
-    page.goto('https://guildjen.com/builds/')
-    page.click("a[data-id='22312']>img")
-    assert page.inner_text(".entry-title")=="Raid Builds"
-
-    df = get_Builds(page, df, "Raid Builds")
-
-    #World PvE Builds
-    page.goto('https://guildjen.com/builds/')
-    page.click("a[data-id='23070']>img")
-    assert page.inner_text(".entry-title")=="Open World Builds"
-
-    df = get_Builds(page, df, "Open World Builds")
-
-    #Strike Mission Builds
-    page.goto('https://guildjen.com/builds/')
-    page.click("a[data-id='23146']>img")
-    assert page.inner_text(".entry-title")=="Strike Mission Builds"
-
-    df = get_Builds(page, df, "Strike Mission Builds")
-
-    #Fractal Builds
-    page.goto('https://guildjen.com/builds/')
-    page.click("a[data-id='23329']>img")    
-    assert page.inner_text(".entry-title")=="Fractal Builds"
-
-    df = get_Builds(page, df, "Fractal Builds")
-    
-    #Print out Data Frame
     print(df)
 
 # Method to generate builds based upon links on the page - returns a data frame
@@ -66,5 +40,4 @@ def get_Builds(page, df, title):
         }
         finalBuilds.append(build)
 
-    newdf = pd.DataFrame(finalBuilds)
-    return pd.concat([df, newdf])
+    return pd.DataFrame(finalBuilds)
