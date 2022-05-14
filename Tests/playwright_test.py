@@ -80,7 +80,7 @@ def test_non_breaking_space(page):
 
 # Author - Robert Chapin
 # Date Created - 5/11/2022
-# This test starts a progress bar and attempts to stop at 75% loaded.  It expects to hit it within 5 seconds but if it goes over it will fail.
+# This test starts a progress bar and attempts to stop at 75% loaded.  It expects to hit it within 10 seconds but if it goes over it will fail.
 def test_progress_bar(page):
     page.goto("/progressbar")
     page.click('#startButton')
@@ -90,6 +90,6 @@ def test_progress_bar(page):
     resultLength = int(result[len(result)-1])
     if (resultLength>10 or resultLength<0):
         print(f'Result length when stopped was over or under 75% by {str(resultLength)}%')
-    assert all(["Result: " in result, resultLength>=0, resultLength<=5])
+    assert all(["Result: " in result, resultLength>=0, resultLength<=10])
     
 

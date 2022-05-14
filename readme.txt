@@ -13,3 +13,4 @@ To have this run you must install the following items utilizing Pip or your favo
     Pyodc (odb connections for database manipulation) - pip install pyodc
     Pytest Assertions (assertions for test verifications) - pip install pytest-assertions
     Pytest Concurrent (multiple threads running at the same time) - pip install pytest-concurrent
+    Pytest Slack (Notifications on slack from pytest) - pip install pytest-slack
