@@ -14,3 +14,6 @@ To have this run you must install the following items utilizing Pip or your favo
     Pytest Assertions (assertions for test verifications) - pip install pytest-assertions
     Pytest Concurrent (multiple threads running at the same time) - pip install pytest-concurrent
     Pytest Slack (Notifications on slack from pytest) - pip install pytest-slack
+    Pytest BDD (Behavior Driven Development for pytest for writing tests in gherkin) - pip install pytest-bdd
+
+The Gherkin extension is installed in visual studio code for ease of reading feature files for BDD test cases.

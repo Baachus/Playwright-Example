@@ -2,7 +2,8 @@ import pytest
 
 # Author - Robert Chapin
 # Date Created - 5/11/2022
-# This test clicks a button on the default page but will be skipped by firefox
+# This test clicks a button on the default page but will be skipped by 
+# firefox
 @pytest.mark.skip_browser("firefox")
 def test_skip_on_firefox(page):
     page.goto("/")
@@ -11,7 +12,8 @@ def test_skip_on_firefox(page):
 
 # Author - Robert Chapin
 # Date Created - 5/11/2022
-# This test clicks a button on the default page but will be skipped by all browsers but chromium
+# This test clicks a button on the default page but will be skipped by 
+# all browsers but chromium
 @pytest.mark.only_browser("chromium")
 def test_only_run_on_chrome(page):
     page.goto("/")
