@@ -2,7 +2,11 @@ import pandas as pd
 import pytest as pt
 
 def test_retrieve_all_builds(page):
-    
+    """
+    This test navigates to guildjen and retrieves all builds for the 6
+    areas of guild wars 2.  It then stores this data in a data frame
+    for later use.
+    """
     # Dictionary of types of builds and the image link to click on the 
     # homepage
     names = {
@@ -15,7 +19,7 @@ def test_retrieve_all_builds(page):
         }
 
     #Data frame to store all information
-    df = pd.DataFrame()
+    final_df = pd.DataFrame()
 
     #loop through all keys in the dictionary
     for spot in names:
@@ -23,14 +27,18 @@ def test_retrieve_all_builds(page):
         page.click(names[spot])
         assert page.inner_text(".entry-title")==spot
         
-        temp = get_Builds(page, pd.DataFrame(), spot)
-        df = pd.concat([df, temp])
+        temp = get_Builds(page, spot)
+        df = pd.concat([final_df, temp])
 
-    print(df)
+    print(final_df)
 
-# Method to generate builds based upon links on the page - returns a 
-# data frame
-def get_Builds(page, df, title):
+def get_Builds(page, title):
+    """
+    Method retrieves all names and links for the build and places the
+    title that is sent in.  It takes this data and forms a data frame.
+
+    returns - DataFrame of the data.
+    """
     buildLinks = page.eval_on_selector_all("a[href$='-build/']", 
         "elements => elements.map(element => element.href)")
         
@@ -42,7 +50,7 @@ def get_Builds(page, df, title):
     if(len(buildLinks)!=len(buildNames)):
         pt.fail("Links and names does not match.")
 
-    finalBuilds = []
+    final_builds = []
 
     for builds in range(len(buildLinks)):
         build = {
@@ -50,6 +58,6 @@ def get_Builds(page, df, title):
             "Name": buildNames[builds],
             "Link": buildLinks[builds],
         }
-        finalBuilds.append(build)
+        final_builds.append(build)
 
-    return pd.DataFrame(finalBuilds)
+    return pd.DataFrame(final_builds)

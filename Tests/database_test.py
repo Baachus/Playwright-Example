@@ -1,11 +1,10 @@
-import pytest 
 import pyodbc
 
-# Author - Robert Chapin
-# Date Created - 5/12/2022
-# This test calls a database request to a local database and gets back 
-# country information which it validates all regions between 1-4
 def test_execute_sql():
+    """"
+    This test calls a database request to a local database and gets
+    back country information which it validates all regions between 1-4
+    """
     conn = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};"
         +"Server=DESKTOP-3HHOLVA;Trusted_Connection=yes;database=Sandbox")
 

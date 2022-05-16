@@ -3,12 +3,12 @@ import pytest
 from datetime import date
 from faker import Faker
 
-# Author - Robert Chapin
-# Date Created - 5/13/2022
-# This test fills out a large form page with fake / random data utilizing faker.
-# Documentation on faker can be found here:
-# https://faker.readthedocs.io/en/master/providers/baseprovider.html
 def test_fill_out_form_with_faker(page):
+    """
+    This test fills out a  large form page with fake/random data utilizing
+    faker.  Documenation on faker can be found here:
+    https://faker.readthedocs.io/en/master/providers/baseprovider.html
+    """
     fake = Faker()
     page.goto("https://www.roboform.com/filling-test-all-fields")
     
@@ -97,9 +97,13 @@ def test_fill_out_form_with_faker(page):
     
     page.click("input[value='Reset']")
 
-
-#method to generate specific card type values that match the page
 def findCardType(cardType):
+    """
+    Method returns the specific card type value that match the 
+    values on the page.
+
+    returns - string value of card type.
+    """
     switch={
        'amex': "1",
        'diners': "4",

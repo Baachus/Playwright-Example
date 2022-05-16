@@ -5,12 +5,15 @@ from enum import auto
 from typing import Generator
 from playwright.sync_api import Playwright, Page, APIRequestContext, expect
 
-#Test fixture to setup requets
 @pytest.fixture(scope="session")
-    #Execute before tests
 def api_request_context(
     playwright: Playwright,
 ) -> Generator[APIRequestContext, None, None]:
+    """
+    This method generates an api request context.  It sets the header
+    information, request contexts, and disposes of the request
+    """
+    #Before Tests
     headers = {
     }
     request_context = playwright.request.new_context(
@@ -20,20 +23,20 @@ def api_request_context(
     #After Tests
     request_context.dispose()
 
-# Author - Robert Chapin
-# Date Created - 5/11/2022
-# This test calls the api of catfact.ninja and retrievse a single fact 
-# and verifies its length is less than max length sent in
 def test_verify_max_length_cat_fact(api_request_context: APIRequestContext) -> None: 
-    catResponse = api_request_context.get(f"/fact", params={"max_length":"100"})
-    assert catResponse.ok
-    catResponseJson = catResponse.json()
-    assert catResponseJson["length"] > 0 and catResponseJson["length"] < 101
+    """
+    This test calls the api of catfact.ninja and retrieves a single fact
+    and verifies its length is less than the max length sent in.
+    """
+    cat_response = api_request_context.get(f"/fact", params={"max_length":"100"})
+    assert cat_response.ok
+    cat_response_json = cat_response.json()
+    assert cat_response_json["length"] > 0 and cat_response_json["length"] < 101
 
-# Author - Robert Chapin
-# Date Created - 5/11/2022
-# This test calls the api of catfact.ninja and retrievse all cat facts 
-# and verifies the response comes back ok
 def test_all_cat_facts(api_request_context: APIRequestContext) -> None:
-    catResponse = api_request_context.get(f'/facts')
-    assert catResponse.ok
+    """
+    This test calls the api of catfact.ninja and retrieves all cat facts
+    and verifies the response comes back ok.
+    """
+    cat_response = api_request_context.get(f'/facts')
+    assert cat_response.ok

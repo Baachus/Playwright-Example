@@ -9,14 +9,14 @@ from bs4 import BeautifulSoup
 
 #mark to skip test unless absolutely wanting to run it takes a while
 @pytest.mark.skip(reason="This test takes a long time only run if needed.")
-# Author - Robert Chapin
-# Date Created - 5/11/2022
-# This test navigates to the whiskey exchange website then scrapes all 
-# single malt scotch whiskies available and gets their name, price, 
-# description, star review, and number of user reviews.  It stores this
-# data in a panda data frame for ease of use.
 def test_data_scrape():
-    baseUrl = 'https://www.thewhiskyexchange.com'
+    """
+    This test navigates to the whiskey exchange website then scrapes 
+    all single malt scotch whiskies available and gets their name, 
+    price, description, star review, and number of user reviews.  It 
+    stores this data in a panda data frame for ease of use.
+    """
+    base_url = 'https://www.thewhiskyexchange.com'
 
     # utilizes a defaulted user agent so the website doesn't block to 
     # many requests from python.  More can be found -
@@ -27,12 +27,12 @@ def test_data_scrape():
     }
 
     #array used to store all the links that were scrapped
-    productlinks = []
+    product_links = []
     #array to store all the whiskey information
-    whiskeylist = []
+    whiskey_list = []
 
     #Retrieve the number of pages
-    r = requests.get('https://www.thewhiskyexchange.com/c/40/single-malt-'
+    resp = requests.get('https://www.thewhiskyexchange.com/c/40/single-malt-'
                     +'scotch-whisky?pg=1')
     soup = BeautifulSoup(r.content, 'html.parser')
     numOfPages = int(
@@ -42,19 +42,19 @@ def test_data_scrape():
     # loop through all pages and get all the product links and store
     # them in the array productlinks
     for x in range(1,numOfPages):
-        r = requests.get(f'https://www.thewhiskyexchange.com/c/40/single-'
+        resp = requests.get(f'https://www.thewhiskyexchange.com/c/40/single-'
                         +'malt-scotch-whisky?pg={x}')
-        soup = BeautifulSoup(r.content, 'html.parser')
+        soup = BeautifulSoup(resp.content, 'html.parser')
         productlist = soup.find_all('li', class_='product-grid__item')
 
         for item in productlist:
             for link in item.find_all('a', href=True):
-                productlinks.append(baseUrl + link['href'])
+                product_links.append(base_url + link['href'])
 
     #loop through all links in product link and get all whiskey information    
-    for link in productlinks:
-        r = requests.get(link, headers=headers)
-        soup = BeautifulSoup(r.content, 'html.parser')
+    for link in product_links:
+        resp = requests.get(link, headers=headers)
+        soup = BeautifulSoup(resp.content, 'html.parser')
 
         #Retrieve Names
         try:
@@ -102,9 +102,9 @@ def test_data_scrape():
             'Number of Reviews':numOfReviews,
             'Description':description,
             }
-        whiskeylist.append(whiskey)
+        whiskey_list.append(whiskey)
 
     # store all information on the whiskeylist array into a data frame 
     # for easier maniuplation later
-    df = pd.DataFrame(whiskeylist)
-    print(df)
+    whiskey_dataframe = pd.DataFrame(whiskey_list)
+    print(whiskey_dataframe)

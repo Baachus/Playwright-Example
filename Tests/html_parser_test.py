@@ -1,10 +1,10 @@
 from bs4 import BeautifulSoup
 
-# Author - Robert Chapin
-# Date Created - 5/11/2022
-# This test utilizes beautiful soup to parse information from a page 
-# and get all h2 links on the page categoriezed with class pull-right
 def test_open_cart_find_total_orders(page):
+    """
+    This test utilizes beautiful soup to parse information from a page 
+    and get all h2 links on the page categoriezed with class pull-right.
+    """
     #utilizes a url different than default page
     page.goto("https://demo.opencart.com/admin")
     page.fill("#input-username", "demo")
