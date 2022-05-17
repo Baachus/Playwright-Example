@@ -4,16 +4,21 @@ middle and backend testing if needed.  It is being utilized for testing out test
 To run the tests in a terminal just run "pytest", this can be modified or changed in your pytest.ini file for any extra cli limitations you want on these.
     *useful change is "pytest -k 'test name'" to run a specific test by itself
 
+This project utilizes Python 3.10  (choco install python3 --pre)
+
 To have this run you must install the following items utilizing Pip or your favorite install:
     pytest (testing framework) - pip install pytest
     playwright (web driver) - pip install pytest-playwright
     faker (generator of random fake data) - pip install Faker
-    Beautiful Soup (html parser) - pip install beautifulsoup4
-    Pandas (Data framework for storing data) - pip install pandas
     Pyodc (odb connections for database manipulation) - pip install pyodc
     Pytest Assertions (assertions for test verifications) - pip install pytest-assertions
     Pytest Concurrent (multiple threads running at the same time) - pip install pytest-concurrent
-    Pytest Slack (Notifications on slack from pytest) - pip install pytest-slack
+    Pytest Report (reports pytest results in an html format) - pip install pytest-reporter-html1
+
+    Beautiful Soup (html parser) - pip install beautifulsoup4
+    Pandas (Data framework for storing data) - pip install pandas
     Pytest BDD (Behavior Driven Development for pytest for writing tests in gherkin) - pip install pytest-bdd
+    Pytest Slack (Notifications on slack from pytest) - pip install pytest-slack
 
 The Gherkin extension is installed in visual studio code for ease of reading feature files for BDD test cases.
+The Python extension is installed in visual studio code for coding in python within visual studio code.

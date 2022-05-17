@@ -28,7 +28,7 @@ def test_retrieve_all_builds(page):
         assert page.inner_text(".entry-title")==spot
         
         temp = get_Builds(page, spot)
-        df = pd.concat([final_df, temp])
+        final_df = pd.concat([final_df, temp])
 
     print(final_df)
 
