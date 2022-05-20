@@ -9,6 +9,8 @@ This project utilizes Python 3.10  (choco install python3 --pre)
 The Gherkin extension is installed in visual studio code for ease of reading feature files for BDD test cases.
 The Python extension is installed in visual studio code for coding in python within visual studio code.
 
+update syspaths are added on m-paths.pth (this is under the sandbox-env->lib->site-packages)
+
 pip List in Sandbox Environment:
     Package               Version
     --------------------- -----------

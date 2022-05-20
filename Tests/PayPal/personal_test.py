@@ -1,11 +1,14 @@
 import pytest
+from paypal_model import PayPal
 
-@pytest.mark.skip(reason="Hover feature a bit instable.")
+#@pytest.mark.skip(reason="Hover feature a bit instable.")
 def test_verify_personal_links(page):
     """
     This test verifies all links in the personal tab of paypal.
     It will click on the link than navigate back.
     """
+    obj = PayPal(page)
+
     linksOnPersonal = [
         "Shop and Buy",
         "Deals and Cash Back",
@@ -27,16 +30,13 @@ def test_verify_personal_links(page):
         "Pay Bills",
     ]
 
-    page.goto('https://www.paypal.com')
+    obj.navigate()
 
     for links in linksOnPersonal:
-        page.hover("#header-personal")
-        page.click(f"text={links}")
-        page.go_back()
+        obj.click_link_personal(page, links)
 
-        
     # Special cases for Buy Now, Pay Later since its text appears multiple
     # times on home page.
-    page.hover("#header-personal")
-    page.click("li>a[href$='buy-now-pay-later']")
+    page.hover(obj.personal_header)
+    page.click(obj.buy_now_pay_later)
     page.go_back()
