@@ -10,7 +10,8 @@ The Gherkin extension is installed in visual studio code for ease of reading fea
 The Python extension is installed in visual studio code for coding in python within visual studio code.
 
 update syspaths are added on m-paths.pth (this is under the sandbox-env->lib->site-packages)
-
+    (may be hidden in vs code under preferences->Files->Exclude)
+    
 To upgrade packages run - (pip-review --local --auto)
 
 pip List in Sandbox Environment (pip list):
