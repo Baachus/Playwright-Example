@@ -1,7 +1,7 @@
 import pytest
 from paypal_model import PayPal
 
-#@pytest.mark.skip(reason="Hover feature a bit instable.")
+@pytest.mark.skip(reason="Hover feature a bit instable.")
 def test_verify_business_links(page):
     """
     This test verifies all links in the business tab of paypal.

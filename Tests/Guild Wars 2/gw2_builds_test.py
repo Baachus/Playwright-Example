@@ -1,5 +1,6 @@
 import pandas as pd
 import pytest as pt
+from gw2_model import GuildWars2
 
 def test_retrieve_all_builds(page):
     """
@@ -9,13 +10,15 @@ def test_retrieve_all_builds(page):
     """
     # Dictionary of types of builds and the image link to click on the 
     # homepage
+    obj = GuildWars2(page)
+
     names = {
-        "PvP Builds": "a[data-id='12412']>img", 
-        "WvW Builds": "a[data-id='12416']>img", 
-        "Raid Builds": "a[data-id='22312']>img", 
-        "Open World Builds": "a[data-id='23070']>img", 
-        "Strike Mission Builds": "a[data-id='23146']>img", 
-        "Fractal Builds": "a[data-id='23329']>img",
+        "PvP Builds": obj.pvp_builds, 
+        "WvW Builds": obj.wvw_builds, 
+        "Raid Builds": obj.raid_builds, 
+        "Open World Builds": obj.open_world_builds, 
+        "Strike Mission Builds": obj.strike_builds, 
+        "Fractal Builds": obj.fractal_builds,
         }
 
     #Data frame to store all information
@@ -23,10 +26,10 @@ def test_retrieve_all_builds(page):
 
     #loop through all keys in the dictionary
     for spot in names:
-        page.goto('https://guildjen.com/builds/')
+        obj.navigate_builds()
         page.click(names[spot])
-        assert page.inner_text(".entry-title")==spot
-        
+        assert page.inner_text(obj.page_title)==spot
+
         temp = get_Builds(page, spot)
         final_df = pd.concat([final_df, temp])
 
@@ -39,10 +42,11 @@ def get_Builds(page, title):
 
     returns - DataFrame of the data.
     """
-    buildLinks = page.eval_on_selector_all("a[href$='-build/']", 
+    obj = GuildWars2(page)
+    buildLinks = page.eval_on_selector_all(obj.build_links,
         "elements => elements.map(element => element.href)")
         
-    buildNames = page.eval_on_selector_all("a[href$='-build/']", 
+    buildNames = page.eval_on_selector_all(obj.build_links, 
         "elements => elements.map(element => element.text)")
     
     # Number of links and names should match if not something is wrong 
