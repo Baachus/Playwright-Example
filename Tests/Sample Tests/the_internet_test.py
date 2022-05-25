@@ -1,11 +1,13 @@
+import os
 from the_internet_model import The_Internet
+
 def test_upload_file(page):
     """
     This test navigates to a website which accepts uploading a file.
     It then uploads a sample file and verifies it uploads successfully.
     """
-    #TODO: Reduce the size of this and make it dynmaic to project.
-    filePath = 'C:/Users/Baachus/Desktop/Files/Automation/Playwright - Example/Sample Files/recipe.txt'
+    dirname = os.path.dirname(__file__)
+    filePath = os.path.join(dirname, '..\\..\\Sample Files\\recipe.txt')
 
     obj = The_Internet(page)
     obj.navigate_to_upload()
