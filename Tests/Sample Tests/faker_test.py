@@ -1,6 +1,3 @@
-import pytest 
-
-from datetime import date
 from faker import Faker
 
 def test_fill_out_form_with_faker(page):

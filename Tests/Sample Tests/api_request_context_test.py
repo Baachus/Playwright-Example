@@ -1,7 +1,5 @@
-import os
 import pytest
 
-from enum import auto
 from typing import Generator
 from playwright.sync_api import Playwright, Page, APIRequestContext, expect
 

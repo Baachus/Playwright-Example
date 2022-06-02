@@ -1,7 +1,5 @@
 # To run tests use pytest in terminal or 
 # pytest -n (Number of parallel tests)
-import os
-
 def test_click(page):
     """
     First Test Created
@@ -97,5 +95,3 @@ def test_progress_bar(page):
         print(f'Result length when stopped was over or under 75% by '
             + '{str(resultLength)}%')
     assert all(["Result: " in result, resultLength>=0, resultLength<=10])
-    
-
