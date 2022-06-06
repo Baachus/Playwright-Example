@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
+import pytest
 
+@pytest.mark.skip(reason="This site is down still.")
 def test_open_cart_find_total_orders(page):
     """
     This test utilizes beautiful soup to parse information from a page 
