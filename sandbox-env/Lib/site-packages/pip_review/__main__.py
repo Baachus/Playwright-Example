@@ -80,6 +80,9 @@ def parse_args():
     parser.add_argument(
         '--auto', '-a', action='store_true', default=False,
         help='Automatically install every update found')
+    parser.add_argument(
+        '--continue-on-fail', '-C', action='store_true', default=False,
+        help='Continue with other installs when one fails')
     return parser.parse_known_args()
 
 
@@ -163,12 +166,17 @@ class InteractiveAsker(object):
 ask_to_install = partial(InteractiveAsker().ask, prompt='Upgrade now?')
 
 
-def update_packages(packages, forwarded):
-    command = pip_cmd() + ['install', '-U'] + forwarded + [
-        '{0}'.format(pkg['name']) for pkg in packages
-    ]
+def update_packages(packages, forwarded, continue_on_fail):
+    upgrade_cmd = pip_cmd() + ['install', '-U'] + forwarded
+    if not continue_on_fail:
+        upgrade_cmd += ['{0}'.format(pkg['name']) for pkg in packages]
+        subprocess.call(upgrade_cmd, stdout=sys.stdout, stderr=sys.stderr)
+        return
 
-    subprocess.call(command, stdout=sys.stdout, stderr=sys.stderr)
+    for pkg in packages:
+        upgrade_cmd += ['{0}'.format(pkg['name'])]
+        subprocess.call(upgrade_cmd, stdout=sys.stdout, stderr=sys.stderr)
+        upgrade_cmd.pop()
 
 
 def confirm(question):
@@ -224,7 +232,7 @@ def main():
     if not outdated and not args.raw:
         logger.info('Everything up-to-date')
     elif args.auto:
-        update_packages(outdated, install_args)
+        update_packages(outdated, install_args, args.continue_on_fail)
     elif args.raw:
         for pkg in outdated:
             logger.info('{0}=={1}'.format(pkg['name'], pkg['latest_version']))
@@ -239,7 +247,7 @@ def main():
                 if answer in ['y', 'a']:
                     selected.append(pkg)
         if selected:
-            update_packages(selected, install_args)
+            update_packages(selected, install_args, args.continue_on_fail)
 
 
 if __name__ == '__main__':
