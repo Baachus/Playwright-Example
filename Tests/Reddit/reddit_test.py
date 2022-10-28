@@ -17,4 +17,5 @@ def test_reddit(page):
 
     assert page.inner_text(obj.squaredcircle_title)=="r/SquaredCircle"
 
+    #commented out but when included stops the test at this point to view page
     #page.pause()
