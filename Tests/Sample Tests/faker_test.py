@@ -1,5 +1,17 @@
 from faker import Faker
 
+def test_fill_out_json(page):
+    """
+    This test fills out a text field with a fake json.
+    """
+    fake = Faker()
+
+    fakeJson = []
+    for _ in range(5):
+        fakeJson.append(fake.json(data_columns={'Candidates':['first_name', 'last_name', 'name']}, num_rows=20))
+
+    print(f'5 JSON Files = {fakeJson}')
+
 def test_fill_out_form_with_faker(page):
     """
     This test fills out a  large form page with fake/random data utilizing
