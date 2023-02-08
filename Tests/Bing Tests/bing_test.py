@@ -1,4 +1,3 @@
-import pytest as pt
 from faker import Faker
 from bing_model import Bing
 
@@ -27,15 +26,15 @@ def test_bing_search(page):
     search_text = []
 
     fake=Faker()
-    for i in range(25):
+    for i in range(50):
         search_text.append(fake.word())
     
     for search in search_text:
         page.goto("https://www.bing.com")
-        if(page.is_visible(obj.sign_in_icon)):
-            page.click(obj.sign_in_icon)
-        page.fill("input[id='sb_form_q']", search)
-        page.click("svg[class='search_svg']")
+        if(page.locator("#id_s").is_visible()):
+            page.click("#id_s")
+        page.fill("#sb_form_q", search)
+        page.keyboard.press("Enter")
         page.wait_for_timeout(1000)
 
 def login_bing(page, obj):
