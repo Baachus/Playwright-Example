@@ -1,6 +1,9 @@
+import pytest
+
 from faker import Faker
 from bing_model import Bing
 
+@pytest.mark.skip(reason="Not complete.")
 def test_activities(page):
     """
     This test attempts to click on each activity for Bing rewards.
@@ -29,6 +32,11 @@ def test_bing_search(page):
     for i in range(50):
         search_text.append(fake.word())
     
+    page.goto("https://www.bing.com")
+    page.wait_for_timeout(10000) # TODO: Update this to remove wait_for_timeout
+    if(page.locator("#id_s").is_visible()):
+        page.click("#id_s")
+    
     for search in search_text:
         page.goto("https://www.bing.com")
         if(page.locator("#id_s").is_visible()):
@@ -38,7 +46,8 @@ def test_bing_search(page):
         page.wait_for_timeout(1000)
 
 def login_bing(page, obj):
-    page.click(obj.sign_in_icon)
+    if(page.locator(obj.sign_in_icon).is_visible()):
+        page.click(obj.sign_in_icon)
     page.wait_for_selector(obj.email_input)
     page.fill(obj.email_input, "bc.robert@gmail.com")   #TODO: Update to parameterize username
     page.get_by_role("button", name="Next").click()

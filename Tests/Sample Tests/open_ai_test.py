@@ -1,6 +1,7 @@
-import os
+import pytest
 import openai
 
+@pytest.mark.skip(reason="This site is down still.")
 def test_open_ai():
     openai.api_key = "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"
 
@@ -16,6 +17,7 @@ def test_open_ai():
 
     print(response.choices[0].text)
 
+@pytest.mark.skip(reason="This site is down still.")
 def test_generate_picture():
     openai.api_key = "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"
 
