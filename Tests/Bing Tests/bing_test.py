@@ -3,7 +3,6 @@ import pytest
 from faker import Faker
 from bing_model import Bing
 
-@pytest.mark.skip(reason="Not complete.")
 def test_activities(page):
     """
     This test attempts to click on each activity for Bing rewards.
@@ -12,9 +11,12 @@ def test_activities(page):
     obj.navigate()
     login_bing(page, obj)
 
-    for card in page.query_selector_all(obj.activity_card): #TODO: Update activity cards to be more speicific
+    for card in page.query_selector_all(obj.plus_icon): #TODO: Update activity cards to be more speicific
         with page.context.expect_page() as tab:
-            card.click()
+            try:
+                card.click()
+            except:
+                print("Unable to click on card")
         new_tab = tab.value
         new_tab.close()
 

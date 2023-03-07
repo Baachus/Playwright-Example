@@ -14,7 +14,7 @@ class Bing:
         self.signed_in = "a[class='redirect_link additional_info']"
         
         self.activity_card = "div[class='c-card-content']"
-        self.weather = "a[href^='https://wabcww.bing.com/search?q=Weather']"
+        self.plus_icon = "span.mee-icon.mee-icon-AddMedium"
 
     def navigate(self):
         self.page.goto(self.bing_url)
