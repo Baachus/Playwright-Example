@@ -42,5 +42,5 @@ def reddit_login(page):
     """
     page.goto("https://old.reddit.com/login")
     page.fill("input[id='user_login']", "Baachus")
-    page.fill("input[id='passwd_login']", "RPdiYC863BP9.")
+    page.fill("input[id='passwd_login']", "RPdiYC863BP9.")  #added to password to make invalid
     page.click("button[type='submit'][tabindex='3']")

@@ -15,6 +15,9 @@ class Bing:
         
         self.activity_card = "div[class='c-card-content']"
         self.plus_icon = "span.mee-icon.mee-icon-AddMedium"
+        self.poll_icon = ":nth-match(:text('Daily poll'), 1)"
+        self.not_signed_in = "text=Microsoft accountYou are not signed in with a Microsoft account.Sign in >> a"
+        self.first_poll_answer = "#btoption0"
 
     def navigate(self):
         self.page.goto(self.bing_url)
