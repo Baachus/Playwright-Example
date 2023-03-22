@@ -2,7 +2,7 @@ class Bing:
     def __init__(self, page):
         self.page = page
 
-        self.bing_url = "https://www.bing.com/rewards"
+        self.bing_url = "https://rewards.bing.com"
 
         self.sign_in_icon = "#raf-signin-link-id"
         self.email_input = "input[name='loginfmt']"
@@ -15,8 +15,9 @@ class Bing:
         
         self.activity_card = "div[class='c-card-content']"
         self.plus_icon = "span.mee-icon.mee-icon-AddMedium"
+        
         self.poll_icon = ":nth-match(:text('Daily poll'), 1)"
-        self.not_signed_in = "text=Microsoft accountYou are not signed in with a Microsoft account.Sign in >> a"
+        self.not_signed_in = ":nth-match(:text('Sign in'), 1)"
         self.first_poll_answer = "#btoption0"
 
     def navigate(self):

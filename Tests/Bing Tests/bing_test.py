@@ -36,6 +36,30 @@ def test_poll(page):
         page1.locator(obj.not_signed_in).click()
     page1.click(obj.first_poll_answer)
 
+@pytest.mark.skip(reason="not complete")
+def test_quiz(page):
+    """
+    This test attempts to solve the quiz for Bing rewards.
+    """
+    obj = Bing(page)
+    obj.navigate()
+    login_bing(page, obj)
+
+    with page.expect_popup() as popup_info:
+        page.click(obj.quiz_icon)
+    page1 = popup_info.value
+    
+    if(page1.locator(obj.not_signed_in).is_visible()):
+        page1.locator(obj.not_signed_in).click()
+    if(page1.locator(obj.start_playing_quiz).is_visible()):
+        page1.locator(obj.start_playing_quiz).click()
+
+    for i in range(10):
+        try:
+            page1.click(obj.first_quiz_answer)
+        except:
+            print("Unable to click on answer - quiz complete?")
+
 def test_bing_search(page):
     """
     This test does a search on Bing for rewards.
