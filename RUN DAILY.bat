@@ -1,2 +1,0 @@
-cmd /c "C:\Users\Baachus\Desktop\Files\Automation\Playwright - Example\ --capture=sys" ^
-C:\Users\Baachus\Desktop\test_file_date.py > C:\Users\Baachus\Desktop\Files\Automation\Test_Results\Test_Results.txt

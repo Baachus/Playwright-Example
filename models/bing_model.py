@@ -2,11 +2,11 @@ class Bing:
     def __init__(self, page):
         self.page = page
 
-        self.bing_url = "https://rewards.bing.com"
+        self.bing_url = "https://www.bing.com/rewards"
 
         self.sign_in_icon = "#raf-signin-link-id"
         self.email_input = "input[name='loginfmt']"
-        self.email_next_btn = "#idSIButton9"
+        self.email_next_bscripttn = "#idSIButton9"
 
         self.password_input = "input[name='passwd']"
         self.password_next_btn = "#idSIButton9"

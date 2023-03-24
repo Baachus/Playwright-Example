@@ -83,6 +83,9 @@ def parse_args():
     parser.add_argument(
         '--continue-on-fail', '-C', action='store_true', default=False,
         help='Continue with other installs when one fails')
+    parser.add_argument(
+        '--freeze-outdated-packages', action='store_true', default=False,
+        help='Freeze all outdated packages to "requirements.txt" before upgrading them')
     return parser.parse_known_args()
 
 
@@ -166,8 +169,14 @@ class InteractiveAsker(object):
 ask_to_install = partial(InteractiveAsker().ask, prompt='Upgrade now?')
 
 
-def update_packages(packages, forwarded, continue_on_fail):
+def update_packages(packages, forwarded, continue_on_fail, freeze_outdated_packages):
     upgrade_cmd = pip_cmd() + ['install', '-U'] + forwarded
+
+    if freeze_outdated_packages:
+        with open('requirements.txt', 'w') as f:
+            for pkg in packages:
+                f.write('{0}=={1}\n'.format(pkg['name'], pkg['version']))
+
     if not continue_on_fail:
         upgrade_cmd += ['{0}'.format(pkg['name']) for pkg in packages]
         subprocess.call(upgrade_cmd, stdout=sys.stdout, stderr=sys.stderr)
@@ -232,7 +241,7 @@ def main():
     if not outdated and not args.raw:
         logger.info('Everything up-to-date')
     elif args.auto:
-        update_packages(outdated, install_args, args.continue_on_fail)
+        update_packages(outdated, install_args, args.continue_on_fail, args.freeze_outdated_packages)
     elif args.raw:
         for pkg in outdated:
             logger.info('{0}=={1}'.format(pkg['name'], pkg['latest_version']))
@@ -247,7 +256,7 @@ def main():
                 if answer in ['y', 'a']:
                     selected.append(pkg)
         if selected:
-            update_packages(selected, install_args, args.continue_on_fail)
+            update_packages(selected, install_args, args.continue_on_fail, args.freeze_outdated_packages)
 
 
 if __name__ == '__main__':
